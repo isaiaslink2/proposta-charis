@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Proposta — Charis × Isaías Oliveira</title>
+<meta name="robots" content="noindex">
+<style>
+:root{
+  --void:#080B10; --panel:#0F141C; --panel-2:#131A24; --line:#1E2836; --line-soft:#182029;
+  --signal:#22D3A5; --amber:#F5A524; --alert:#FF6B5B; --terra:#E07A52;
+  --ink:#E8EFF6; --ink-2:#A9B8C9; --muted:#6E7F92; --shadow:0 20px 60px rgba(0,0,0,.55);
+  --mono:ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+}
+@media (prefers-color-scheme: light){
+  :root{--void:#F2F5F8;--panel:#FFFFFF;--panel-2:#F7F9FB;--line:#DCE4EC;--line-soft:#E8EEF3;--signal:#0F9E77;--amber:#B87309;--alert:#CC3A2A;--terra:#B8502D;--ink:#0B141D;--ink-2:#3D5163;--muted:#6B7E90;--shadow:0 16px 44px rgba(15,40,70,.10)}
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--void);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:1140px;margin:0 auto;padding:0 20px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--signal);display:flex;align-items:center;gap:9px;margin-bottom:14px}
+.eyebrow::before{content:"";width:22px;height:1px;background:var(--signal);opacity:.7}
+h1{font-size:clamp(30px,5vw,54px);font-weight:800;letter-spacing:-.03em;line-height:1.05;margin:0 0 18px;text-wrap:balance}
+h2{font-size:clamp(24px,3.4vw,36px);font-weight:800;letter-spacing:-.025em;margin:0 0 10px;text-wrap:balance;line-height:1.15}
+h3{font-size:18px;font-weight:700;margin:0 0 6px;letter-spacing:-.01em}
+p{margin:0 0 14px}
+.lede{color:var(--ink-2);max-width:66ch;margin:0 0 30px;font-size:16px}
+section{padding:64px 0;border-top:1px solid var(--line-soft)}
+@media(max-width:640px){section{padding:44px 0}}
+a{color:var(--signal)}
+.bad{color:var(--alert)} .acc{color:var(--signal)}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,1fr)} .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:900px){.g3,.g4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px}
+.card.soft{background:var(--panel-2)}
+code{font-family:var(--mono);font-size:12.5px;background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:1px 6px;color:var(--ink)}
+
+.deadline{background:linear-gradient(90deg,color-mix(in srgb,var(--alert) 16%,var(--void)),color-mix(in srgb,var(--amber) 12%,var(--void)));border-bottom:1px solid color-mix(in srgb,var(--alert) 32%,var(--line))}
+.deadline .wrap{display:flex;align-items:center;gap:14px;padding:10px 20px;flex-wrap:wrap}
+.deadline .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--alert);font-weight:700}
+.deadline .txt{font-size:12.5px;color:var(--ink-2)}
+.clock{margin-left:auto;display:flex;gap:6px}
+.cu{background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:5px 9px;text-align:center;min-width:48px}
+.cu b{display:block;font-family:var(--mono);font-size:17px;font-weight:800;color:var(--ink);line-height:1.1}
+.cu span{font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.topbar{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--void) 90%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft)}
+.topbar .wrap{display:flex;align-items:center;gap:16px;height:56px}
+.brand{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);white-space:nowrap}
+.brand b{color:var(--ink)}
+.nav{margin-left:auto;display:flex;gap:18px;font-size:13px}
+.nav a{color:var(--ink-2);text-decoration:none}
+@media(max-width:760px){.nav{display:none}}
+
+.hero{padding:64px 0 40px;border-top:0}
+.hero .lede{font-size:17px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 26px}
+.chip{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;border:1px solid var(--line);border-radius:999px;padding:6px 12px;color:var(--ink-2)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:30px}
+@media(max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.kpi span{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
+.kpi b{font-family:var(--mono);font-size:22px;font-weight:800;letter-spacing:-.02em;color:var(--ink)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--signal);color:#06241A;font-weight:800;font-size:16px;padding:16px 26px;border-radius:12px;text-decoration:none;border:0;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+
+.shot{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:14px;box-shadow:var(--shadow)}
+.shot .src{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 10px;display:flex;justify-content:space-between;gap:10px}
+.shot img{display:block;width:100%;height:auto;border-radius:10px;border:1px solid var(--line)}
+.shots{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:800px){.shots{grid-template-columns:1fr}}
+.pin{position:absolute;z-index:2;background:var(--alert);color:#fff;font-family:var(--mono);font-weight:800;font-size:12px;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 4px color-mix(in srgb,var(--alert) 28%,transparent)}
+.cap{font-size:12.5px;color:var(--ink-2);margin:10px 2px 0}
+.cap b{color:var(--alert)}
+.leaks{counter-reset:l;list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.leaks li{counter-increment:l;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 16px 16px 58px;position:relative}
+.leaks li::before{content:counter(l);position:absolute;left:16px;top:16px;width:28px;height:28px;border-radius:50%;background:var(--alert);color:#fff;font-family:var(--mono);font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
+.leaks b{display:block;font-size:15px;margin-bottom:3px}
+.leaks p{margin:0;font-size:14px;color:var(--ink-2)}
+.leaks .fix{display:block;margin-top:8px;font-size:13px;color:var(--signal)}
+.leaks .fix::before{content:"→ ";font-family:var(--mono)}
+.term{font-family:var(--mono);font-size:12.5px;background:#05080c;color:#cfe8dc;border:1px solid var(--line);border-radius:12px;padding:14px 16px;overflow:auto;white-space:pre;line-height:1.5}
+.term .k{color:#7cc4ff}.term .r{color:#ff8a7a}.term .g{color:#6ee7b7}
+
+.proof{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:900px){.proof{grid-template-columns:repeat(2,1fr)}}
+.proof .card b{display:block;font-family:var(--mono);font-size:30px;font-weight:800;letter-spacing:-.02em;color:var(--ink);line-height:1.1;margin-bottom:6px}
+.proof .card span{font-size:13px;color:var(--ink-2)}
+
+.videos{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:800px){.videos{grid-template-columns:1fr}}
+.phone{background:#0e1726;border-radius:34px;padding:12px;box-shadow:var(--shadow);border:1px solid var(--line)}
+.phone video{display:block;width:100%;aspect-ratio:9/16;border-radius:24px;background:#000;object-fit:cover}
+.phone .vc{padding:12px 6px 4px;font-size:13px;color:#cfd6e6}
+.phone .vc b{display:block;color:#fff;font-size:14px;margin-bottom:2px}
+
+.front{display:flex;flex-direction:column;gap:10px}
+.front .tag{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between}
+.front ul{margin:4px 0 0;padding-left:18px;color:var(--ink-2);font-size:14px}
+.front li{margin:5px 0}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th,td{padding:12px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+td.r,th.r{text-align:right;font-family:var(--mono);white-space:nowrap}
+tr.total td{font-weight:800;border-bottom:0;border-top:2px solid var(--line)}
+tr.you td{background:color-mix(in srgb,var(--signal) 10%,var(--panel));font-weight:800}
+
+.price{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:start}
+@media(max-width:900px){.price{grid-template-columns:1fr}}
+.plan{background:linear-gradient(180deg,color-mix(in srgb,var(--signal) 12%,var(--panel)),var(--panel));border:1px solid color-mix(in srgb,var(--signal) 40%,var(--line));border-radius:18px;padding:24px}
+.plan .big{font-family:var(--mono);font-size:clamp(30px,5vw,44px);font-weight:800;letter-spacing:-.03em;line-height:1;margin:4px 0 2px}
+.plan .big small{font-size:14px;color:var(--muted);font-family:var(--sans);font-weight:600;letter-spacing:0}
+.plan ul{padding-left:18px;margin:12px 0 0;color:var(--ink-2);font-size:14px}
+.plan li{margin:5px 0}
+.summary{background:var(--panel-2);border:1px solid var(--line);border-radius:18px;padding:22px}
+.summary .row{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:14.5px}
+.summary .row:last-of-type{border-bottom:0}
+.summary .row b{font-family:var(--mono)}
+.summary .tot{margin-top:12px;padding-top:14px;border-top:2px solid var(--line)}
+.summary .tot .big{font-family:var(--mono);font-size:28px;font-weight:800;letter-spacing:-.02em}
+.summary .note{font-size:12.5px;color:var(--muted);margin-top:12px}
+input[type=range]{width:100%;accent-color:var(--signal)}
+.ctl{margin:14px 0}
+.ctl label{display:flex;justify-content:space-between;font-size:13px;color:var(--ink-2);margin-bottom:6px}
+.ctl label b{font-family:var(--mono);color:var(--ink)}
+.seg{display:flex;gap:8px}
+.seg button{flex:1;background:var(--panel);border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:10px;font-family:var(--mono);font-weight:700;cursor:pointer;font-size:12px}
+.seg button.on{border-color:var(--signal);background:color-mix(in srgb,var(--signal) 14%,var(--panel))}
+
+.tl{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+@media(max-width:900px){.tl{grid-template-columns:1fr}}
+.tl li{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+.tl .d{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--signal);margin-bottom:8px}
+.tl b{display:block;font-size:15px;margin-bottom:6px}
+.tl p{font-size:13.5px;color:var(--ink-2);margin:0}
+details{border-top:1px solid var(--line);padding:14px 0}
+details:last-of-type{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;font-weight:700;font-size:16px;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::after{content:"+";font-family:var(--mono);color:var(--muted)}
+details[open] summary::after{content:"–"}
+details p{color:var(--ink-2);font-size:15px;margin:10px 0 0}
+.final{text-align:center;padding:80px 0}
+.final .btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:26px 0 14px}
+.fine{font-size:12.5px;color:var(--muted)}
+footer{padding:28px 0 60px;color:var(--muted);font-size:12.5px;text-align:center;font-family:var(--mono);letter-spacing:.06em}
+</style>
+</head>
+<body>
+
+<div class="deadline">
+  <div class="wrap">
+    <span class="lbl">Proposta expira</span>
+    <span class="txt">Estas condições valem por <b>24 horas</b>, até <b>23/10/2026 às 17h</b> (Brasília). Depois, a vaga de implantação desta semana e o valor do setup são recalculados.</span>
+    <div class="clock">
+      <div class="cu"><b id="cd">--</b><span>dias</span></div>
+      <div class="cu"><b id="ch">--</b><span>horas</span></div>
+      <div class="cu"><b id="cm">--</b><span>min</span></div>
+      <div class="cu"><b id="cs">--</b><span>seg</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="topbar">
+  <div class="wrap">
+    <span class="brand"><b>Isaías Oliveira</b> × Charis</span>
+    <nav class="nav">
+      <a href="#diagnostico">Diagnóstico</a>
+      <a href="#videos">Vídeos</a>
+      <a href="#metodo">O que entra</a>
+      <a href="#investimento">Investimento</a>
+      <a href="#prazos">Prazos</a>
+      <a href="#faq">Dúvidas</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Proposta técnica · 22 de outubro de 2026 · para Ana Laura e Allan Almeida</div>
+    <h1>Um milhão de pessoas te ouvem. <span class="bad">A sua loja não escuta nenhuma delas.</span></h1>
+    <p class="lede">A lojacharis.com é o único lugar da sua operação que não mede nada: sem Pixel da Meta, sem Google Tag, sem anúncio no ar. Cada mãe que sai do seu Instagram e entra na loja vira invisível. Eu abri a loja, o perfil e a Biblioteca de Anúncios como uma mãe faria, pelo celular, e achei seis vazamentos. Esta página mostra cada um com print, o que eu faço com ele, e três vídeos que a minha fábrica fez hoje com as capas dos seus livros, sem você gravar nada.</p>
+    <div class="chips">
+      <span class="chip">lojacharis.com · Nuvemshop</span>
+      <span class="chip">@analaura.almeidaa · 1 mi</span>
+      <span class="chip">CHARIS LTDA · Osasco/SP</span>
+      <span class="chip">Operação à distância (Milão → Brasil)</span>
+    </div>
+    <a class="btn" href="#diagnostico">Ver os 6 vazamentos com print ↓</a>
+    <div class="kpis">
+      <div class="kpi"><span>Para começar</span><b>R$ 5.000</b></div>
+      <div class="kpi"><span>Mensal (a partir do 30º dia)</span><b>R$ 3.500 + 10%*</b></div>
+      <div class="kpi"><span>Loja medindo e anúncio no ar em</span><b>14 dias</b></div>
+      <div class="kpi"><span>Maratona Mães Sábias</span><b>13 a 20/11</b></div>
+    </div>
+    <p class="fine" style="margin-top:10px">* 10% só sobre a verba de mídia que passar de R$ 15 mil no mês. Até R$ 15 mil, é só o fixo.</p>
+  </div>
+</header>
+
+<section id="diagnostico">
+  <div class="wrap">
+    <div class="eyebrow">Diagnóstico · feito em 22/10/2026</div>
+    <h2>Seis vazamentos entre o seu Instagram e o botão de pagar</h2>
+    <p class="lede">Tudo verificado por mim hoje: loja, Instagram, Biblioteca de Anúncios da Meta e cadastro da empresa na Receita Federal. Nada de achismo.</p>
+
+    <div class="shots">
+      <div class="shot">
+        <div class="src"><span>lojacharis.com · celular</span><span>home</span></div>
+        <span class="pin" style="left:22px;top:60px">1</span>
+        <img src="img/loja-home.jpg" width="800" height="1207" alt="Home da loja no celular">
+        <p class="cap"><b>1 ·</b> A loja carrega bonita. Mas por trás dela não existe Pixel da Meta nem Google Tag. Testei no navegador: <code>fbq: undefined</code>, <code>gtag: undefined</code>. Nenhuma visita, carrinho ou compra volta para a Meta.</p>
+      </div>
+      <div class="shot">
+        <div class="src"><span>lojacharis.com · celular</span><span>produto</span></div>
+        <span class="pin" style="left:22px;top:60px">2</span>
+        <span class="pin" style="right:22px;top:60px">3</span>
+        <img src="img/loja-produto.jpg" width="750" height="1624" alt="Página do livro A Revolução no Lar">
+        <p class="cap"><b>2 ·</b> Livro de R$ 59,90 anunciado em "12x de R$ 6,16": com juros, o total vai a R$ 73,92. Pix com 0% de desconto. <b>3 ·</b> Só 5 produtos, vendidos um a um: sem kit, sem "leve 2", sem ponte para os seus cursos.</p>
+      </div>
+      <div class="shot">
+        <div class="src"><span>instagram.com/analaura.almeidaa</span><span>22/10/2026</span></div>
+        <span class="pin" style="left:22px;top:60px">4</span>
+        <img src="img/ig-perfil.jpg" width="800" height="655" alt="Perfil do Instagram com 1 mi de seguidores">
+        <p class="cap"><b>4 ·</b> 1 mi de seguidores, 3.925 posts, destaques "LIVRO" e "Livro Destinos". O link da bio vai para um agregador (livnia.com.br), não para a loja. A mãe que quer o livro precisa achar o caminho sozinha.</p>
+      </div>
+    </div>
+
+    <div class="grid g2" style="margin-top:16px">
+      <div class="shot">
+        <div class="src"><span>Biblioteca de Anúncios da Meta · Brasil · ativos</span><span>"charis academy" · "lojacharis"</span></div>
+        <span class="pin" style="left:22px;top:48px">5</span>
+        <img src="img/ad-library.jpg" width="560" height="458" alt="Biblioteca de Anúncios: nenhum anúncio ativo">
+        <p class="cap"><b>5 ·</b> Nenhum anúncio ativo para a loja nem para a Charis Academy. Hoje o livro só vende para quem já te segue e acha o caminho. Nenhuma mãe nova chega até ele.</p>
+      </div>
+      <div class="shot">
+        <div class="src"><span>Receita Federal · CNPJ 41.650.246/0001-96</span><span>consulta 22/10/2026</span></div>
+        <span class="pin" style="left:22px;top:48px">6</span>
+        <div class="term"><span class="k">razão social</span>   CHARIS LTDA
+<span class="k">porte</span>          EMPRESA DE PEQUENO PORTE
+<span class="k">abertura</span>       20/04/2021 · Osasco/SP
+<span class="k">CNAE</span>           ensino · <span class="g">comércio varejista de livros</span> · edição de livros · agência de publicidade
+<span class="k">sócios</span>         Allan de Moraes Almeida · Ana Laura B. R. Almeida
+<span class="k">Simples</span>        <span class="r">não optante</span>
+<span class="k">loja</span>           lojacharis.com · <span class="r">sem Pixel</span> · <span class="r">sem anúncio</span></div>
+        <p class="cap"><b>6 ·</b> Uma empresa de pequeno porte, fora do Simples, com CNAE de livraria e editora, operando a loja sem medição e sem mídia. A estrutura existe. O que falta é ligar o motor.</p>
+      </div>
+    </div>
+
+    <h3 style="margin:34px 0 12px">Os 6 pontos e o que eu faço com cada um</h3>
+    <ol class="leaks">
+      <li><b>Loja sem Pixel e sem Google Tag</b><p>O site dos cursos tem Pixel e GTM. A loja, não. Toda visita vinda do seu Instagram some.</p><span class="fix">Pixel + API de Conversões + GA4 na Nuvemshop, com evento de compra deduplicado. A Meta passa a aprender quem é a mãe que compra.</span></li>
+      <li><b>Livro de R$ 59,90 em 12x com juros, Pix sem desconto</b><p>Parcelar um livro em 12 vezes diz "produto caro". E o Pix, que é o pagamento mais barato pra você, não tem incentivo.</p><span class="fix">Pix com desconto visível, parcelamento curto e sem juros, preço à vista em destaque.</span></li>
+      <li><b>Cinco produtos, vendidos um a um</b><p>Sem kit, sem "leve 2 e ganhe o e-book", sem frete grátis a partir de um valor claro. Ticket médio preso em um livro.</p><span class="fix">Kits (Lar, Mães, Líderes), frete grátis a partir de um valor, e-book como bônus. Objetivo: subir o pedido médio sem subir o preço do livro.</span></li>
+      <li><b>Bio de 1 milhão de seguidores apontando para um agregador</b><p>O caminho do Instagram até o livro tem passos demais.</p><span class="fix">Link direto para a loja com rastreio de origem, destaque "LIVRO" apontando para o kit, e os Reels de livro com o link certo.</span></li>
+      <li><b>Nenhum anúncio para a loja</b><p>Um milhão de pessoas já te conhecem. Nenhuma está sendo lembrada do livro.</p><span class="fix">Remarketing para quem interagiu com você nos últimos 365 dias, público semelhante às compradoras, catálogo da loja na Meta. Primeiro quem já te ama; depois quem ainda não te conhece.</span></li>
+      <li><b>Livro e curso em mundos separados</b><p>Quem compra o livro não é levada ao curso. Quem faz a Maratona não é levada à loja.</p><span class="fix">Sequência pós-compra (e-mail e WhatsApp) do livro para o curso, e kit da Maratona para as 100 mil mães que já passaram por ela. O livro vira a porta de entrada mais barata da Charis.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section id="videos">
+  <div class="wrap">
+    <div class="eyebrow">Fábrica de criativos · feitos hoje, 22/10</div>
+    <h2>Três anúncios dos seus livros. Você não gravou nada.</h2>
+    <p class="lede">Você mora em Milão e a loja vende no Brasil. Criativo não pode depender de você aparecer. Estes três vídeos saíram da minha fábrica em um dia, com as capas reais da sua loja, texto animado e trilha. É assim que a loja ganha anúncio novo toda semana, sem câmera e sem fuso horário.</p>
+    <div class="videos">
+      <div class="phone">
+        <video src="video/L01-tela-ou-biblia.mp4" poster="video/L01.jpg" muted loop playsinline autoplay controls preload="metadata"></video>
+        <div class="vc"><b>Tela ou Bíblia</b>A Revolução no Lar · pergunta para a mãe, 260 dias com os filhos</div>
+      </div>
+      <div class="phone">
+        <video src="video/L02-lancamento-destinos.mp4" poster="video/L02.jpg" muted loop playsinline autoplay controls preload="metadata"></video>
+        <div class="vc"><b>Lançamento</b>Ativando destinos proféticos · para pais, pastores e líderes</div>
+      </div>
+      <div class="phone">
+        <video src="video/L03-flechas.mp4" poster="video/L03.jpg" muted loop playsinline autoplay controls preload="metadata"></video>
+        <div class="vc"><b>Salmo 127</b>Filhos: flechas na mão do valente · o versículo vira pergunta</div>
+      </div>
+    </div>
+    <p class="fine" style="margin-top:14px">Amostras. Com o briefing, a fábrica produz os ângulos a partir do que já funciona nos seus Reels e dos depoimentos reais da loja. Sem preço em imagem, sem urgência inventada, dentro do CDC e do CONAR.</p>
+  </div>
+</section>
+
+<section id="quem">
+  <div class="wrap">
+    <div class="eyebrow">Por que eu</div>
+    <h2>Eu vendo pela internet desde 2012, com o meu dinheiro, não com o de cliente.</h2>
+    <div class="proof">
+      <div class="card"><b>R$ 6 mi</b><span>investidos em anúncio na Meta sob minha gestão</span></div>
+      <div class="card"><b>+300 mil</b><span>vendas feitas pela internet, do anúncio ao pagamento</span></div>
+      <div class="card"><b>+150</b><span>parceiros e empresas operando com a minha estrutura</span></div>
+      <div class="card"><b>15 anos</b><span>de operação própria, com tráfego pago como motor</span></div>
+    </div>
+    <div class="card soft" style="margin-top:16px">
+      <h3>O que "estrategista de vendas" quer dizer aqui</h3>
+      <p style="margin:0;color:var(--ink-2)">Não é "subir anúncio". É cuidar do caixa da loja: oferta, kit, ticket médio, recompra, o caminho do livro para o curso e a leitura semanal do que está pagando. Eu opero hoje um produto digital vendido para pais e mães pelo Instagram e pelo WhatsApp, com a mesma fábrica de criativos e o mesmo painel que você vai receber. Não vou aprender no seu dinheiro.</p>
+    </div>
+  </div>
+</section>
+
+<section id="metodo">
+  <div class="wrap">
+    <div class="eyebrow">O que entra</div>
+    <h2>Três frentes, uma operação só</h2>
+    <div class="grid g3">
+      <div class="card front">
+        <span class="tag"><span>Tráfego</span><span>Meta</span></span>
+        <h3>O anúncio lembra quem já te ama</h3>
+        <ul>
+          <li>Remarketing: engajou com você em 365 dias, visitou a loja, abandonou carrinho</li>
+          <li>Público semelhante às compradoras e Advantage+ Shopping</li>
+          <li>Catálogo da loja ligado à Meta</li>
+          <li>Pixel + API de Conversões + GA4, compra deduplicada</li>
+          <li>Otimização diária, desligo o que não vende, escalo o que vende</li>
+        </ul>
+      </div>
+      <div class="card front">
+        <span class="tag"><span>Estratégia</span><span>vendas</span></span>
+        <h3>A loja vende mais por pedido</h3>
+        <ul>
+          <li>Kits, frete grátis a partir de X, Pix com desconto, e-book bônus</li>
+          <li>Carrinho abandonado por e-mail e WhatsApp</li>
+          <li>Pós-compra: do livro para o curso</li>
+          <li>Plano da Maratona (13 a 20/11): kit e oferta para as 100 mil mães</li>
+          <li>Leitura semanal: pedido médio, custo por venda, recompra</li>
+        </ul>
+      </div>
+      <div class="card front">
+        <span class="tag"><span>Criativos</span><span>fábrica</span></span>
+        <h3>Anúncio novo toda semana, sem você gravar</h3>
+        <ul>
+          <li>Vídeos em código a partir das capas, trechos dos seus Reels e depoimentos reais</li>
+          <li>Um ângulo por público: mãe, pai, pastor, líder</li>
+          <li>Teste de 1 criativo por conjunto, régua de custo por venda</li>
+          <li>Você aprova pelo celular, em Milão, no seu horário</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:28px">
+      <h3>O que isso custaria se fosse gente</h3>
+      <table>
+        <tr><th>Função</th><th>Se fosse contratada</th><th class="r">Por mês</th></tr>
+        <tr><td>Gestor de tráfego</td><td>Campanhas, públicos, otimização</td><td class="r">~R$ 3.500</td></tr>
+        <tr><td>Estrategista de e-commerce</td><td>Oferta, kits, carrinho, recompra, funil livro → curso</td><td class="r">~R$ 5.000</td></tr>
+        <tr><td>Designer e editor de vídeo</td><td>Criativos novos toda semana</td><td class="r">~R$ 3.000</td></tr>
+        <tr><td>Analista de dados</td><td>Rastreio, painel, leitura semanal</td><td class="r">~R$ 2.500</td></tr>
+        <tr class="total"><td colspan="2">Estrutura humana</td><td class="r">~R$ 14.000</td></tr>
+        <tr class="you"><td colspan="2">Esta proposta, as quatro funções instaladas</td><td class="r">R$ 3.500 + 10%*</td></tr>
+      </table>
+      <p class="fine" style="margin:10px 0 0">Valores de referência de mercado para contratação CLT ou PJ no Brasil. * 10% só sobre a verba de mídia acima de R$ 15 mil/mês.</p>
+    </div>
+  </div>
+</section>
+
+<section id="investimento">
+  <div class="wrap">
+    <div class="eyebrow">Investimento</div>
+    <h2>Preço que acompanha a verba. Mídia no seu cartão. Mensalidade só no 30º dia.</h2>
+    <p class="lede">Quando a verba cresce, o trabalho cresce, e a remuneração cresce junto. Quando a verba é pequena, você paga só o fixo. Você vê um mês inteiro de operação antes da primeira mensalidade.</p>
+    <div class="price">
+      <div>
+        <div class="plan">
+          <span class="eyebrow" style="margin-bottom:6px">Setup · pago uma vez</span>
+          <div class="big">R$ 5.000 <small>hoje</small></div>
+          <ul>
+            <li>Correção dos 6 vazamentos (rastreio, Pix e parcelamento, kits, bio, catálogo)</li>
+            <li>Pixel + API de Conversões + GA4 na Nuvemshop, testados</li>
+            <li>Conta de anúncios e Gerenciador de Negócios estruturados; catálogo ligado</li>
+            <li>Carrinho abandonado e pós-compra configurados</li>
+            <li>6 criativos iniciais da fábrica e campanhas no ar</li>
+            <li>Painel no seu celular: gasto, pedidos, custo por venda, receita por canal</li>
+          </ul>
+        </div>
+        <div class="plan" style="margin-top:14px">
+          <span class="eyebrow" style="margin-bottom:6px">Mensal · a partir do 30º dia</span>
+          <div class="big">R$ 3.500 <small>+ 10% da verba acima de R$ 15 mil</small></div>
+          <ul>
+            <li>Gestão diária das campanhas e criativo novo toda semana</li>
+            <li>Estratégia de vendas: oferta, kits, recompra, funil livro → curso</li>
+            <li>Relatório semanal no WhatsApp + reunião quinzenal de 30 min no seu horário</li>
+            <li>Sem fidelidade e sem multa: mês a mês, avisa no ciclo anterior e encerra</li>
+          </ul>
+        </div>
+      </div>
+      <div class="summary">
+        <div class="eyebrow" style="margin-bottom:8px">Simule a sua conta</div>
+        <div class="ctl">
+          <label><span>Verba de mídia por mês</span><b id="vLbl">R$ 10.000</b></label>
+          <input type="range" id="verba" min="3000" max="60000" step="1000" value="10000">
+        </div>
+        <div class="ctl">
+          <label><span>Pedido médio da loja</span></label>
+          <div class="seg">
+            <button type="button" data-t="59.9" class="on">1 livro · R$ 59,90</button>
+            <button type="button" data-t="119.8">Kit 2 · R$ 119,80</button>
+          </div>
+        </div>
+        <div class="row"><span>Mídia no mês (pago à Meta)</span><b id="m1">R$ 10.000</b></div>
+        <div class="row"><span>Mensalidade (fixo + 10% acima de 15 mil)</span><b id="fee">R$ 3.500</b></div>
+        <div class="tot">
+          <span style="font-size:13px;color:var(--muted)">Operação por mês (mês 2 em diante)</span>
+          <div class="big" id="t2">R$ 13.500</div>
+        </div>
+        <div class="row" style="margin-top:14px;border-top:1px solid var(--line)"><span>Pedidos no mês que pagam mídia + mensalidade</span><b id="be">226</b></div>
+        <div class="row"><span>Isso é quanto do seu 1 milhão de seguidores</span><b id="pct">0,02%</b></div>
+        <p class="note">Régua, não previsão. Ninguém sério promete número de vendas. O painel mostra em 30 dias se a conta fecha, e a verba só sobe o que já provou que volta. A mensalidade cobre a operação com até R$ 15 mil de mídia; acima disso, 10% sobre o excedente.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="prazos">
+  <div class="wrap">
+    <div class="eyebrow">Linha do tempo</div>
+    <h2>Loja medindo em 4 dias. Anúncio no ar em 14. Maratona em 22.</h2>
+    <ol class="tl">
+      <li><div class="d">Dia 0</div><b>Pagamento + briefing</b><p>40 minutos online, no seu horário em Milão: margem, estoque, envio, cursos, calendário da Maratona.</p></li>
+      <li><div class="d">Dias 1 a 4</div><b>A loja passa a medir</b><p>Pixel, API de Conversões e GA4 na Nuvemshop. Catálogo ligado à Meta. Link da bio para a loja.</p></li>
+      <li><div class="d">Dias 3 a 8</div><b>Oferta</b><p>Kits, Pix com desconto, frete grátis a partir de X, carrinho abandonado, pós-compra livro → curso.</p></li>
+      <li><div class="d">Dias 5 a 12</div><b>Fábrica</b><p>6 criativos: mãe, pai, líder, lançamento, kit, depoimento. Você aprova pelo celular.</p></li>
+      <li><div class="d">Dia 14</div><b>No ar</b><p>Remarketing do 1 milhão + semelhantes + catálogo. Painel no seu celular. Plano da Maratona pronto para 13/11.</p></li>
+    </ol>
+    <div class="card soft" style="margin-top:22px">
+      <h3>Por que agora</h3>
+      <p style="margin:0;color:var(--ink-2)">A 12ª Maratona Mães Sábias, Filhos Vencedores começa em 13 de novembro. É a maior concentração de mães atentas a você no ano. Com a loja medindo e os kits prontos antes disso, cada aula vira uma chance de venda do livro, e cada livro vira uma porta para o curso. Começando esta semana, chegamos na Maratona com 3 semanas de dado.</p>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="eyebrow">Dúvidas</div>
+    <h2>Perguntas que costumam vir</h2>
+    <details><summary>A verba de anúncio passa por você?</summary><p>Não. A mídia é paga por você, no seu cartão, direto para a Meta, na sua conta de anúncios. Eu opero a campanha, mas o dinheiro da mídia nunca passa pelo meu caixa. Você pausa quando quiser.</p></details>
+    <details><summary>Por que 10% sobre a verba?</summary><p>Porque gerir R$ 40 mil de mídia é outro trabalho que gerir R$ 10 mil: mais criativos, mais públicos, mais leitura. O percentual alinha o meu interesse ao seu: eu só ganho mais quando a verba cresce, e a verba só cresce quando o painel prova que está voltando. Até R$ 15 mil por mês, é só o fixo.</p></details>
+    <details><summary>Funciona com você no Brasil e eu em Milão?</summary><p>É o cenário ideal pra esta estrutura. A fábrica faz criativo sem você gravar. O painel está no seu celular. A reunião quinzenal é no seu horário. A operação roda no Brasil, onde está a loja, o estoque e a cliente.</p></details>
+    <details><summary>Tem fidelidade? E se eu quiser parar?</summary><p>Não existe fidelidade nem multa. Mês a mês. Se não fizer sentido, você avisa no ciclo anterior e encerramos. O setup é pago uma vez e tudo que foi instalado na loja fica com você.</p></details>
+    <details><summary>Você garante resultado?</summary><p>Garantir venda é mentir. O que eu garanto é método, transparência total no painel e a mesma estrutura que roda no meu próprio negócio. Quem te prometer número de vendas antes de rodar está chutando com o seu dinheiro.</p></details>
+    <details><summary>Quem opera no dia a dia?</summary><p>Eu, diretamente. Você fala com quem mexe na campanha, com quem desenha a oferta e com quem roda a fábrica de criativos. Não existe camada de atendimento entre nós.</p></details>
+    <details><summary>Por que a proposta tem prazo?</summary><p>Porque a implantação é feita por mim, uma de cada vez, e a agenda desta semana tem uma vaga. Para chegar na Maratona com dado, precisa começar agora. Depois das 24 horas, o cronograma entra na fila do próximo ciclo e as condições são recalculadas.</p></details>
+  </div>
+</section>
+
+<section class="final" id="comecar">
+  <div class="wrap">
+    <div class="eyebrow" style="justify-content:center">Próximo passo</div>
+    <h2>Em 14 dias, a loja escuta o seu milhão. Em 22, chega na Maratona pronta.</h2>
+    <p class="lede" style="margin:0 auto 10px">Me responde <b style="color:var(--ink)">"BORA"</b> aqui no WhatsApp. Eu te mando o link do setup e marcamos o briefing de 40 minutos no seu horário.</p>
+    <div class="btns">
+      <a class="btn" href="#comecar" onclick="return false">Responder "BORA" no WhatsApp</a>
+      <a class="btn ghost" href="#diagnostico">Rever os 6 pontos</a>
+    </div>
+    <p class="fine">Sem fidelidade e sem multa. Mensalidade só a partir do 30º dia. Verba de mídia no seu cartão, no seu controle. Proposta válida por 24 horas, até 23/10/2026 às 17h.</p>
+  </div>
+</section>
+
+<footer>ISAÍAS OLIVEIRA · TRÁFEGO, ESTRATÉGIA DE VENDAS E FÁBRICA DE CRIATIVOS DESDE 2012 · @isaias.c.oliveira</footer>
+
+<script>
+(function(){
+  var end=new Date('2026-10-23T17:00:00-03:00').getTime();
+  function pad(n){return (n<10?'0':'')+n}
+  function tick(){var d=Math.max(0,end-Date.now());
+    document.getElementById('cd').textContent=Math.floor(d/864e5);
+    document.getElementById('ch').textContent=pad(Math.floor(d/36e5)%24);
+    document.getElementById('cm').textContent=pad(Math.floor(d/6e4)%60);
+    document.getElementById('cs').textContent=pad(Math.floor(d/1e3)%60);}
+  tick(); setInterval(tick,1000);
+  var verba=document.getElementById('verba'), ticket=59.9;
+  function brl(n){return 'R$ '+Math.round(n).toLocaleString('pt-BR')}
+  function calc(){var v=+verba.value, fee=3500+Math.max(0,v-15000)*0.10, tot=v+fee, be=Math.ceil(tot/ticket);
+    document.getElementById('vLbl').textContent=brl(v); document.getElementById('m1').textContent=brl(v);
+    document.getElementById('fee').textContent=brl(fee); document.getElementById('t2').textContent=brl(tot);
+    document.getElementById('be').textContent=be.toLocaleString('pt-BR');
+    document.getElementById('pct').textContent=(be/1e6*100).toFixed(2).replace('.',',')+'%';}
+  verba.addEventListener('input',calc);
+  document.querySelectorAll('.seg button').forEach(function(b){b.addEventListener('click',function(){
+    document.querySelectorAll('.seg button').forEach(function(x){x.classList.remove('on')}); b.classList.add('on'); ticket=+b.dataset.t; calc();});});
+  calc();
+})();
+</script>
+</body>
+</html>
